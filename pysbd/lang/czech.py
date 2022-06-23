@@ -3,6 +3,7 @@ from pysbd.abbreviation_replacer import AbbreviationReplacer
 from pysbd.lang.common import Common, Standard
 from pysbd.lists_item_replacer import ListItemReplacer
 from pysbd.utils import Text
+from pysbd.processor import Processor
 
 class Czech(Common, Standard):
 
@@ -33,7 +34,7 @@ class Czech(Common, Standard):
         PREPOSITIVE_ABBREVIATIONS = ['st', 'p', 'dr', 'mudr', 'judr', 'ing', 'mgr', 'bc', 'drsc', 'doc', 'prof']
         NUMBER_ABBREVIATIONS = ['č', 'no', 'nr']
 
-    class AbbreviationReplacer(AbbreviationReplacer):
+    class Processor(Processor):
 
         def __init__(self, text, lang, char_span=False):
             super().__init__(text, lang, char_span)
