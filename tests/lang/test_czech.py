@@ -95,7 +95,9 @@ GOLDEN_CZ_RULES_TEST_CASES = [
     ("Opravdu ne... no, co tím myslím...vidět . . . co říkám, jde o to . . . nemyslel jsem to tak.",
     ["Opravdu ne... no, co tím myslím...vidět . . . co říkám, jde o to . . . nemyslel jsem to tak."]),
     ("Jeden další zvyk, který byl poněkud oslabený . . . byla to kombinace slov do samointerpretačních sloučenin. . . . Praxe nebyla opuštěna. . . .",
-    ["Jeden další zvyk, který byl poněkud oslabený . . . byla to kombinace slov do samointerpretačních sloučenin. . . .", "Praxe nebyla opuštěna. . . ."])
+    ["Jeden další zvyk, který byl poněkud oslabený . . . byla to kombinace slov do samointerpretačních sloučenin. . . .", "Praxe nebyla opuštěna. . . ."]),
+    ("Ahoj světe.Dnes je úterý.Mr. Smith šel do obchodu a koupil 1000.To je hodně.",
+    ["Ahoj světe.", "Dnes je úterý.", "Mr. Smith šel do obchodu a koupil 1000.", "To je hodně."])
 ]
 
 @pytest.mark.parametrize('text,exptected_sents', GOLDEN_CZ_RULES_TEST_CASES)

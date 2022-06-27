@@ -5,18 +5,19 @@ from pysbd.lang.common import Common, Standard
 from pysbd.lists_item_replacer import ListItemReplacer
 from pysbd.utils import Text
 from pysbd.processor import Processor
+from pysbd.utils import Rule
 
 class Czech(Common, Standard):
 
     iso_code = 'cz'
 
-    class ListItemReplacer(ListItemReplacer):
+    class Numbers(Common.Numbers):
 
-        def add_line_break(self):
-            self.format_roman_numeral_lists()
-            self.format_numbered_list_with_periods()
-            self.format_numbered_list_with_parens()
-            return self.text
+        NumberPeriodSpaceRule = Rule(r'(?<=\s[1-9][0-9])\.(?=\s)|(?<=\s[0-9])\.(?=\s)', '∯')
+
+        NegativeNumberPeriodSpaceRule = Rule(r'(?<=\s-[1-9][0-9])\.(?=\s)|(?<=\s-[0-9])\.(?=\s)', '∯')
+
+        All = Common.Numbers.All + [NumberPeriodSpaceRule, NegativeNumberPeriodSpaceRule]
 
     class AbbreviationReplacer(AbbreviationReplacer):
         SENTENCE_STARTERS = []
