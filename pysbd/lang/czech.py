@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import re
 from pysbd.abbreviation_replacer import AbbreviationReplacer
 from pysbd.lang.common import Common, Standard
@@ -12,8 +13,6 @@ class Czech(Common, Standard):
     class ListItemReplacer(ListItemReplacer):
 
         def add_line_break(self):
-            # Same as slovak one
-
             self.format_roman_numeral_lists()
             self.format_numbered_list_with_periods()
             self.format_numbered_list_with_parens()
@@ -30,9 +29,22 @@ class Czech(Common, Standard):
             return txt
 
     class Abbreviation(Standard.Abbreviation):
-        ABBREVIATIONS = ['st', 'p', 'dr', 'mudr', 'judr', 'ing', 'mgr', 'bc', 'drsc', 'doc', 'prof', 'č', 'no', 'nr', 'arch', 'hovor', 'zast', 'přen', 'neform', 'kniž', 'urážl', 'pej', 'vulg', 'abbr', 'příd', 'přísl', 'pom. sl', 'sp', 'staž', 'zvol', 'ger', 'rozk', 'inf', 'cit', 'm', 'ž', 'pl', 'zájm', 's', 'm mn', 'ž. mn', 's. mn', 'dok', 'ned', 'předl', 'pomn', 'čísl', 'část', 'zdrob', '1p', '2p', '3p', '4p', '5p', '6p', '7p', 'předp', 'příč. dok', 'příč. ned', 'min. dok', 'min. ned', 'form', 'děts', 'slang', 's r. o', 's. r. o', 'min', 'max', 'spol', 'a. d', 'o. k', 'a. s. a. p', 'p. n. l', 'pol. pr', 'a.s.a.p', 'p.n.l', 'př. n. l', 'př.n.l', 'n.l', 'n. l' 'corp', 'm.o', 'pol.pr', 'pp', 'sl', 'cz', 'cs', 'tz', 'rtg', 'o.c.p', 'o. c. p', 'c.k', 'c. k', 'n.a', 'n. a','a.m', 'a. m', 'p.m', 'p. m', 'vz', 'i.b', 'i. b', 'ú.p.v.o', 'ú. p. v. o', 'bros', 'rsdr', 'tu', 'ods', 'n.w.a', 'n. w. a', 'nár', 'pedg', 'paeddr', 'rndr', 'naprk', 'a.g.p', 'a. g. p', 'pr', 'a.v', 'a. v', 'por', 'mvdr', 'nešp', 'u.s', 'u. s', 'kt', 'vyd', 'e.t', 'e. t', 'al', 'll.m', 'll. m', 'o.f.i', 'o. f. i', 'mr', 'apod', 'súkr', 'stred', 's.e.g', 's. e. g', 'sr', 'tvz', 'ind', 'var', 'etc', 'atd', 'n.o', 'n. o', 's.a', 's. a', 'např', 'a.i.i', 'a. i. i', 'a.k.a', 'a. k. a', 'konkr', 'čsl', 'prek', 'gen', 'viď', 'k. o', 'v. sp', 'skr', 'phdr', 'xx', 'š.p', 'odd', 'ltd', 't.z', 't. z', 'o.z', 'o. z', 'obv', 'obr', 'pok', 'tel', 'št', 'š. p', 'ph.d', 'ph. d', 'm.n.m', 'm. n. m', 'zz', 'roz', 'atď.', 'ev', 'v.sp', 't.č', 't. č', 'el', 'os', 'co', 'r.o', 'r. o', 'str', 'p.a', 'p. a', 'zdravot', 'cca', 'p.s', 'p. s', 'zák', 'slov', 'arm', 'inc', 'd.c', 'k.o', 'a. r. k', 'd. c', 'soc', 'zs', 'akad', 'sz', 'pozn', 'tr', 'nám', 'kol', 'csc', 'ul', 'o.i', 'jr', 'zb', 'sv', 'tj', 'čs', 'tzn', 'príp', 'iv', 'hl', 'pod', 'vi', 'tis', 'stor', 'rozh', 'mld', 'atď', 'a.s', 'a. s', 'phd', 'z.z', 'z. z', 'hod', 'vs', 'písm', 's.r.o', 'ml', 'iii', 't.j', 't. j','ii', 'napr', 'resp', 'tzv', 'ad', 'aj', 'ap', 'atp', 'atpod', 'bibl','hl.n', 'hl. n', 'kar', 'kupr', 'kupř', 'mil', 'mj', 't. r', 't.r', 'zvl']
+        ABBREVIATIONS = ['st', 'p', 'dr', 'mudr', 'judr', 'ing', 'mgr', 'bc', 'drsc', 'doc', 'prof', 'č', 'c', 'no', 'nr', 'arch', 'hovor', 'zast', 'přen', 'neform', 'kniž', 'kniz', 'urážl', 
+        'urazl', 'pej',  'vulg', 'abbr', 'příd', 'prid', 'přísl', 'prisl', 'pom. sl', 'sp', 'staž', 'staz', 'zvol', 'ger', 'rozk', 'inf', 'cit', 'm', 'ž', 'z', 'pl', 'zájm', 'zajm', 's', 
+        'm mn', 'ž. mn', 'z. mn', 'ž.mn', 'z.mn', 's. mn', 's.mn', 'dok', 'ned', 'předl', 'predl', 'pomn', 'čísl', 'cisl', 'část', 'cast',  'zdrob', '1p', '2p', '3p', '4p', '5p', '6p', 
+        '7p', 'předp', 'predp', 'příč. dok', 'pric. dok', 'příč.dok', 'pric.dok', 'příč. ned', 'pric. ned', 'příč.ned', 'pric.ned', 'min. dok', 'min. ned', 'form', 'děts', 'dets', 'slang', 
+        's r. o', 's. r. o', 'min', 'max', 'spol', 'a. d', 'o. k', 'a. s. a. p', 'p. n. l', 'pol. pr', 'a.s.a.p', 'p.n.l', 'př. n. l', 'př.n.l', 'n.l', 'n. l' 'corp', 'm.o', 'pol.pr', 
+        'pp', 'sl', 'cz', 'cs', 'tz', 'rtg', 'o.c.p', 'o. c. p', 'c.k', 'c. k', 'n.a', 'n. a','a.m', 'a. m', 'p.m', 'p. m', 'vz', 'i.b', 'i. b', 'ú.p.v.o', 'u.p.v.o', 'ú. p. v. o', 
+        'u. p. v. o', 'bros', 'rsdr', 'tu', 'ods', 'n.w.a', 'n. w. a', 'nár', 'nar', 'pedg', 'paeddr', 'rndr', 'naprk', 'a.g.p', 'a. g. p', 'pr', 'a.v', 'a. v', 'por', 'mvdr', 'nešp', 
+        'nesp', 'u.s', 'u. s', 'kt', 'vyd', 'e.t', 'e. t', 'al', 'll.m', 'll. m', 'o.f.i', 'o. f. i', 'mr', 'apod', 'súkr', 'sukr', 'stred', 's.e.g', 's. e. g', 'sr', 'tvz', 'ind', 'var', 
+        'etc', 'atd', 'n.o', 'n. o', 's.a', 's. a', 'např', 'napr', 'a.i.i', 'a. i. i', 'a.k.a', 'a. k. a',  'konkr', 'čsl', 'csl', 'prek', 'gen', 'viď', 'k. o', 'v. sp', 'skr', 'phdr', 
+        'xx', 'odd', 'ltd', 't.z', 't. z', 'o.z', 'o. z', 'obv', 'obr', 'pok', 'tel', 'št', 'š. p', 's. p', 'š.p', 's.p', 'ph.d', 'ph. d', 'm.n.m', 'm. n. m', 'zz', 
+        'roz', 'atď', 'ev', 'v.sp', 't.č', 't. č', 'el', 'os', 'co', 'r.o', 'r. o', 'str', 'p.a', 'p. a', 'zdravot', 'cca', 'p.s', 'p. s', 'zák', 'slov', 'arm', 'inc', 'd.c', 'k.o', 
+        'a. r. k', 'd. c', 'soc', 'zs', 'akad', 'sz', 'pozn', 'tr', 'nám', 'kol', 'csc', 'ul', 'o.i', 'jr', 'zb', 'sv', 'tj', 'čs', 'tzn', 'príp', 'iv', 'hl', 'pod', 'vi', 'tis', 'stor', 
+        'rozh', 'mld', 'a.s', 'a. s', 'phd', 'z.z', 'z. z', 'hod', 'vs', 'písm', 'pism', 's.r.o', 'ml', 'iii', 't.j', 't. j', 'ii', 'resp', 'tzv', 'ad',  'aj', 'ap', 
+        'atp', 'atpod', 'bibl', 'hl.n', 'hl. n', 'kar', 'kupř', 'kupr', 'mil', 'mj', 't. r', 't.r', 'zvl']
         PREPOSITIVE_ABBREVIATIONS = ['st', 'p', 'dr', 'mudr', 'judr', 'ing', 'mgr', 'bc', 'drsc', 'doc', 'prof']
-        NUMBER_ABBREVIATIONS = ['č', 'no', 'nr']
+        NUMBER_ABBREVIATIONS = ['č', 'c', 'no', 'nr']
 
     class Processor(Processor):
 
@@ -43,11 +55,8 @@ class Czech(Common, Standard):
             if not self.text:
                 return self.text
             self.text = self.text.replace('\n', '\r')
-
-            # Here we use language specific ListItemReplacer:
             li = self.lang.ListItemReplacer(self.text)
             self.text = li.add_line_break()
-
             self.replace_abbreviations()
             self.replace_numbers()
             self.replace_continuous_punctuation()
