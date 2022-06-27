@@ -22,8 +22,6 @@ class Czech(Common, Standard):
         SENTENCE_STARTERS = []
 
         def replace_period_of_abbr(self, txt, abbr):
-            # Same as slovak one
-
             abbr_new = abbr.replace(".", "∯") + "∯"
             txt = txt.replace(abbr + ".", abbr_new)
             return txt
