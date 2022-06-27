@@ -49,7 +49,7 @@ class Czech(Common, Standard):
 
         def __init__(self, text, lang, char_span=False):
             super().__init__(text, lang, char_span)
-
+        """ 
         def process(self):
             if not self.text:
                 return self.text
@@ -65,7 +65,7 @@ class Czech(Common, Standard):
                 self.lang.GeoLocationRule, self.lang.FileFormatRule)
             postprocessed_sents = self.split_into_segments()
             return postprocessed_sents
-
+        """
         def replace_numbers(self):
             self.text = Text(self.text).apply(*self.lang.Numbers.All)
             self.replace_period_in_czech_dates()
