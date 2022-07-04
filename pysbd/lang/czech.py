@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
 from pysbd.abbreviation_replacer import AbbreviationReplacer
+from pysbd.between_punctuation import BetweenPunctuation
 from pysbd.lang.common import Common, Standard
 from pysbd.lists_item_replacer import ListItemReplacer
 from pysbd.utils import Text
@@ -10,6 +11,9 @@ from pysbd.utils import Rule
 class Czech(Common, Standard):
 
     iso_code = 'cz'
+
+    SENTENCE_BOUNDARY_REGEX = r'.*?[\.!:\?]|.*?$'
+    Punctuations = ['．', '.', '!', '?', ':', ': ']
 
     class Numbers(Common.Numbers):
 
@@ -45,15 +49,51 @@ class Czech(Common, Standard):
         'art', 'assn', 'asst', 'attys', 'ave', 'btw', 'cal', 'calif', 'capt', 'insp', 'kans', 'ken', 'ky', 'gov', 'hon', 'hosp', 'hr', 'i. e', 'i.e', 'ia', 'id', 'mich', 
         'minn', 'miss', 'mt', 'mtn', 'neb', 'nebr', 'nev', 'ok', 'okla', 'ont', 'ref', 'rep', 'sen', 'surg', 'tenn', 'tex', 'univ', 'vs', 'vt', 'wash', 'wis', 'wisc', 
         'wy', 'wyo', 'yuk', 'jan', 'feb', 'mar', 'apr', 'aug', 'sept', 'oct', 'nov', 'dec', 'led', 'úno', 'uno', 'bře', 'bre', 'dub', 'kvě', 'čvn', 'čvc', 'cvc' 'srp', 'zář', 'zar', 
-        'říj', 'rij', 'lis', 'pro']
+        'říj', 'rij', 'lis', 'pro', 'viz']
         PREPOSITIVE_ABBREVIATIONS = ['st', 'p', 'dr', 'mudr', 'judr', 'ing', 'mgr', 'bc', 'drsc', 'doc', 'prof']
         NUMBER_ABBREVIATIONS = ['č', 'c', 'no', 'nr']
+
+    class ListItemReplacer(ListItemReplacer):
+
+        def add_line_break(self):
+            # Alphabetical lists are causing a lot of troubles with abbreviations with 
+            # multiple periods and spaces.
+            # e.g.  "s. r. o.", "a. s.", "hl. n."
+
+            # self.format_alphabetical_lists()
+            self.format_roman_numeral_lists()
+            self.format_numbered_list_with_periods()
+            self.format_numbered_list_with_parens()
+            return self.text
+    
+    class BetweenPunctuation(BetweenPunctuation):
+
+
+        def sub_punctuation_between_quotes_and_parens(self, txt):
+            # Sentence splitting inside parentheses and quotes enabled
+            return txt
 
     class Processor(Processor):
 
         def __init__(self, text, lang, char_span=False):
             super().__init__(text, lang, char_span)
             
+        def process(self):
+            if not self.text:
+                return self.text
+            self.text = self.text.replace('\n', '\r')
+            li = self.lang.ListItemReplacer(self.text)  # czech specific
+            self.text = li.add_line_break()
+            self.replace_abbreviations()
+            self.replace_numbers()
+            self.replace_continuous_punctuation()
+            self.replace_periods_before_numeric_references()
+            self.text = Text(self.text).apply(
+                self.lang.Abbreviation.WithMultiplePeriodsAndEmailRule,
+                self.lang.GeoLocationRule, self.lang.FileFormatRule)
+            postprocessed_sents = self.split_into_segments()
+            return postprocessed_sents
+
         def replace_numbers(self):
             self.text = Text(self.text).apply(*self.lang.Numbers.All)
             self.replace_period_in_czech_dates()
@@ -66,8 +106,8 @@ class Czech(Common, Standard):
             self.text = re.sub(r'(?<=\d)\.(?=\s*[a-z]+)', '∯', self.text)
 
         def replace_period_in_roman_numerals(self):
-            # Rubular: https://rubular.com/r/XlzTIi7aBRThSl
-            self.text = re.sub(r'((\s+[VXI]+)|(^[VXI]+))(\.)(?=\s+)', r'\1∯', self.text, re.IGNORECASE)
+            # Rubular: https://rubular.com/r/3ugNL11dQQRF6T
+            self.text = re.sub(r'((\s+[VXIvxi]+)|(^[VXIvxi]+))(\.)(?=\s+)', r'\1∯', self.text, re.IGNORECASE)
 
         def replace_period_in_czech_dates(self):
             MONTHS = ['leden', 'únor', 'březen', 'duben', 'květen', 'červen', 'srpen', 'září', 'říjen', 'listopad', 'prosinec'
