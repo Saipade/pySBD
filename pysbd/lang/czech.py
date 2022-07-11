@@ -16,6 +16,9 @@ class Czech(Common, Standard):
     # https://prirucka.ujc.cas.cz/?id=161
     SENTENCE_BOUNDARY_REGEX = r"（(?:[^）])*）(?=\s?[A-Z])|「(?:[^」])*」(?=\s[A-Z])|\((?:[^\)]){2,}\)(?=\s[A-Z])|\'(?:[^\'])*[^,]\'(?=\s[A-Z])|\"(?:[^\"])*[^,]\"(?=\s[A-Z])|\“(?:[^\”])*[^,]\”(?=\s[A-Z])|[。．.！!?？ ]{2,}|\S.*?([。．.！!?？ȸȹ☉☈☇☄]|:(?!\s?\S+[;,]))|[。．.！!?？]"
 
+    SENTENCE_BOUNDARY_REGEX = r'.*?[\.!:\?]|.*?$'
+    Punctuations = ['．', '.', '!', '?', ':', ': ']
+
     class Numbers(Common.Numbers):
 
         NumberPeriodSpaceRule = Rule(r'(?<=\s[1-9][0-9])\.(?=\s)|(?<=\s[0-9])\.(?=\s)', '∯')
