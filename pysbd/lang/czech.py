@@ -72,6 +72,17 @@ class Czech(Common, Standard):
             self.format_numbered_list_with_parens()
             return self.text
     
+        def add_line_breaks_for_numbered_list_with_periods(self):
+            self.text = self.text
+
+    class BetweenPunctuation(BetweenPunctuation):
+        
+        def sub_punctuation_between_quotes_and_parens(self, txt):
+            """ 
+            Sentence splitting inside parentheses and quotes disabled
+            """
+            return txt
+    
     class Processor(Processor):
 
         def __init__(self, text, lang, char_span=False):
@@ -114,6 +125,3 @@ class Czech(Common, Standard):
             for month in MONTHS:
                 # Rubular: https://rubular.com/r/NJgKCcZxqGVClV
                 self.text = re.sub(r'(?<=\d)\.(?=\s*{month})'.format(month=month), '∯', self.text)
-
-
-
